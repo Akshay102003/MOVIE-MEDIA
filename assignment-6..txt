@@ -1,0 +1,186 @@
+MySQL Shell 8.0.26
+
+Copyright (c) 2016, 2021, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect root@localhost:33060/seriesdb
+Creating a session to 'root@localhost:33060/seriesdb'
+Please provide the password for 'root@localhost:33060': ***********
+Save password for 'root@localhost:33060'? [Y]es/[N]o/Ne[v]er (default No): no
+Fetching schema names for autocompletion... Press ^C to stop.
+Fetching table and column names from `seriesdb` for auto-completion... Press ^C to stop.
+Your MySQL connection id is 41 (X protocol)
+Server version: 8.0.26 MySQL Community Server - GPL
+Default schema set to `seriesdb`.
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| seriesdb           |
+| sys                |
+| webseriesdb        |
++--------------------+
+6 rows in set (0.0007 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > show tables;
++--------------------+
+| Tables_in_seriesdb |
++--------------------+
+| country            |
+| director           |
+| genre              |
+| series             |
++--------------------+
+4 rows in set (0.0014 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > drop table genre;
+Query OK, 0 rows affected (0.0531 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > drop table country;
+Query OK, 0 rows affected (0.0453 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > drop table director;
+Query OK, 0 rows affected (0.0425 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > drop table series;
+Query OK, 0 rows affected (0.0447 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > show tables;
+Empty set (0.0017 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > create table genre (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(256) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.0274 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into genre (name) values ('action');
+Query OK, 1 row affected (0.0080 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into genre (name) values ('drama');
+Query OK, 1 row affected (0.0052 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into genre (name) values ('crime');
+Query OK, 1 row affected (0.0058 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into genre (name) values ('thriller');
+Query OK, 1 row affected (0.0070 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select * from genre;
++----+----------+
+| id | name     |
++----+----------+
+|  1 | action   |
+|  2 | drama    |
+|  3 | crime    |
+|  4 | thriller |
++----+----------+
+4 rows in set (0.0006 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > create table country (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(256) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.0308 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into country (name) values ('USA');
+Query OK, 1 row affected (0.0120 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into country (name) values ('India');
+Query OK, 1 row affected (0.0021 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into country (name) values ('Japan');
+Query OK, 1 row affected (0.0068 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select * from country;
++----+-------+
+| id | name  |
++----+-------+
+|  1 | USA   |
+|  2 | India |
+|  3 | Japan |
++----+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > create table director (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(256) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.0267 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into director (name) values ('Vince Gilligan');
+Query OK, 1 row affected (0.0088 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into director (name) values ('Kate Herron');
+Query OK, 1 row affected (0.0058 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into director (name) values ('Karan Anshuman');
+Query OK, 1 row affected (0.0069 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into director (name) values ('Hansal Mehta');
+Query OK, 1 row affected (0.0069 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into director (name) values ('Hiroaki Matsuyama');
+Query OK, 1 row affected (0.0062 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select * from director;
++----+-------------------+
+| id | name              |
++----+-------------------+
+|  1 | Vince Gilligan    |
+|  2 | Kate Herron       |
+|  3 | Karan Anshuman    |
+|  4 | Hansal Mehta      |
+|  5 | Hiroaki Matsuyama |
++----+-------------------+
+5 rows in set (0.0007 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > create table series (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(256) NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.0264 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Breaking Bad',4,1,2008,2013,'Ended',1);
+ERROR: 1054: Unknown column 'genre' in 'field list'
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > describe series;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(256) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.0086 sec)
+ 
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > drop table series;
+Query OK, 0 rows affected (0.0445 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > create table series (id INT NOT NULL AUTO_INCREMENT,name VARCHAR(256) NOT NULL,genre INT NOT NULL,country INT NOT NULL,yor INT NOT NULL,yoe INT NOT NULL,status VARCHAR(256) NOT NULL,director INT NOT NULL,PRIMARY KEY(id));
+Query OK, 0 rows affected (0.0245 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Breaking Bad',4,1,2008,2013,'Ended',1);
+Query OK, 1 row affected (0.0085 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Loki',1,1,2021,2021,'Active',2);
+Query OK, 1 row affected (0.0029 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Scam 1992',2,2,2020,2020,'Active',4);
+Query OK, 1 row affected (0.0066 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Liar Game',2,3,2007,2010,'Ended',5);
+Query OK, 1 row affected (0.0056 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > insert into series (name,genre,country,yor,yoe,status,director) values ('Mirzapur',3,2,2018,2020,'Active',3);
+Query OK, 1 row affected (0.0061 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select * from series;
++----+--------------+-------+---------+------+------+--------+----------+
+| id | name         | genre | country | yor  | yoe  | status | director |
++----+--------------+-------+---------+------+------+--------+----------+
+|  1 | Breaking Bad |     4 |       1 | 2008 | 2013 | Ended  |        1 |
+|  2 | Loki         |     1 |       1 | 2021 | 2021 | Active |        2 |
+|  3 | Scam 1992    |     2 |       2 | 2020 | 2020 | Active |        4 |
+|  4 | Liar Game    |     2 |       3 | 2007 | 2010 | Ended  |        5 |
+|  5 | Mirzapur     |     3 |       2 | 2018 | 2020 | Active |        3 |
++----+--------------+-------+---------+------+------+--------+----------+
+5 rows in set (0.0019 sec)
+ 
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select series.id as id,series.name as name,genre.name as genre,country.name as country,series.yor as yor,series.yoe as yoe,series.status as status,director.name as director from series inner join genre on series.genre=genre.id join country on series.country=country.id join director on series.director=director.id;
++----+--------------+----------+---------+------+------+--------+-------------------+
+| id | name         | genre    | country | yor  | yoe  | status | director          |
++----+--------------+----------+---------+------+------+--------+-------------------+
+|  1 | Breaking Bad | thriller | USA     | 2008 | 2013 | Ended  | Vince Gilligan    |
+|  2 | Loki         | action   | USA     | 2021 | 2021 | Active | Kate Herron       |
+|  3 | Scam 1992    | drama    | India   | 2020 | 2020 | Active | Hansal Mehta      |
+|  4 | Liar Game    | drama    | Japan   | 2007 | 2010 | Ended  | Hiroaki Matsuyama |
+|  5 | Mirzapur     | crime    | India   | 2018 | 2020 | Active | Karan Anshuman    |
++----+--------------+----------+---------+------+------+--------+-------------------+
+5 rows in set (0.0066 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select series.id as id,series.name as name,genre.name as genre,country.name as country,series.yor as yor,series.yoe as yoe,series.status as status,director.name as director from series inner join genre on series.genre=genre.id join country on series.country=country.id join director on series.director=director.id where country.name='USA' and status='Ended';
+
++----+--------------+----------+---------+------+------+--------+----------------+
+| id | name         | genre    | country | yor  | yoe  | status | director       |
++----+--------------+----------+---------+------+------+--------+----------------+
+|  1 | Breaking Bad | thriller | USA     | 2008 | 2013 | Ended  | Vince Gilligan |
++----+--------------+----------+---------+------+------+--------+----------------+
+1 row in set (0.0012 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select series.id as id,series.name as name,genre.name as genre,country.name as country,series.yor as yor,series.yoe as yoe,series.status as status,director.name as director from series inner join genre on series.genre=genre.id join country on series.country=country.id join director on series.director=director.id where yor>=2000 and yor<=2010;
++----+--------------+----------+---------+------+------+--------+-------------------+
+| id | name         | genre    | country | yor  | yoe  | status | director          |
++----+--------------+----------+---------+------+------+--------+-------------------+
+|  1 | Breaking Bad | thriller | USA     | 2008 | 2013 | Ended  | Vince Gilligan    |
+|  4 | Liar Game    | drama    | Japan   | 2007 | 2010 | Ended  | Hiroaki Matsuyama |
++----+--------------+----------+---------+------+------+--------+-------------------+
+2 rows in set (0.0047 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL > select series.id as id,series.name as name,genre.name as genre,country.name as country,series.yor as yor,series.yoe as yoe,series.status as status,director.name as director from series inner join genre on series.genre=genre.id join country on series.country=country.id join director on series.director=director.id where yor>=2010 and yor<=2021;
++----+-----------+--------+---------+------+------+--------+----------------+
+| id | name      | genre  | country | yor  | yoe  | status | director       |
++----+-----------+--------+---------+------+------+--------+----------------+
+|  2 | Loki      | action | USA     | 2021 | 2021 | Active | Kate Herron    |
+|  3 | Scam 1992 | drama  | India   | 2020 | 2020 | Active | Hansal Mehta   |
+|  5 | Mirzapur  | crime  | India   | 2018 | 2020 | Active | Karan Anshuman |
++----+-----------+--------+---------+------+------+--------+----------------+
+3 rows in set (0.0008 sec)
+ MySQL  localhost:33060+ ssl  seriesdb  SQL >
